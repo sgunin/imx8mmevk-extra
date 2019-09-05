@@ -1,5 +1,6 @@
 DESCRIPTION = "Console image for imx8MM Development board"
 LICENSE = "MIT"
+# http://www.informit.com/articles/article.aspx?p=2514911
 
 inherit core-image
 inherit extrausers
@@ -10,25 +11,38 @@ EXTRA_USERS_PARAMS = " \
         "
 
 GLIBC_GENERATE_LOCALES = "en_GB.UTF-8 en_US.UTF-8"
-IMAGE_LINGUAS ?= "en-gb"
+IMAGE_LINGUAS ?= "en-us"
 LIMIT_BUILT_LOCALES ?= "POSIX en_GB"
+#DEFAULT_TIMEZONE=”Europe/Moscow”
+
+# Add aditional 5Gb free space to RootFS
+IMAGE_ROOTFS_EXTRA_SPACE = "5242880"
 
 IMAGE_FEATURES += " \
     package-management \
-    ssh-server-openssh \
-    debug-tweaks \
-    splash \
-    nfs-server \
-    ssh-server-dropbear \
+    post-install-logging \
+    nfs-client \
     hwcodecs \
 "
 
 IMAGE_INSTALL += " \
     ssh-fixes \
+    zip \
+    opkg \
     openssh \
     openssh-keygen \
     openssh-sftp-server \
     tzdata \
+    htop \
+    gpsd \
+    gps-utils \
+    curl \
+    sudo \
+    screen \
+    cpufrequtils \
+    ntp \
+    procps \
+    cronie \
     minicom \
     kernel-devicetree \
     kernel-modules \
@@ -53,10 +67,12 @@ IMAGE_INSTALL += " \
     wpa-supplicant-cli \
     iproute2 \
     iproute2-tc \
-    "
-
-CORE_IMAGE_EXTRA_INSTALL += " \
+    rsync \
+    gstreamer1.0-rtsp-server \
+    gst-variable-rtsp-server \
+    packagegroup-base-extended \
     packagegroup-core-full-cmdline \
+    packagegroup-core-ssh-openssh \
     packagegroup-tools-bluetooth \
     packagegroup-fsl-tools-audio \
     packagegroup-fsl-tools-gpu \

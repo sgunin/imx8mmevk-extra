@@ -2,27 +2,24 @@ DESCRIPTION = "Debug version of console image for imx8MM Development board"
 
 require console-image.bb
 
-EXTRA_IMAGE_FEATURES += " \
-    tools-debug \
-    eclipse-debug \
-"
-
 IMAGE_FEATURES += " \
-    tools-profile \
     tools-debug \
+    tools-profile \
     tools-testapps \
+    eclipse-debug \
+    dev-pkgs \
+    doc-pkgs \
 "
-
 IMAGE_INSTALL += " \
+    strace \
     i2c-tools \
     memtester \
     sysbench \
     devmem2 \
-    gdbserver \
     libstdc++-dev \
-    "
-
-CORE_IMAGE_EXTRA_INSTALL += " \
     packagegroup-fsl-tools-testapps \
     packagegroup-fsl-tools-benchmark \
+    packagegroup-core-buildessential \
+    packagegroup-core-tools-debug \
+    gst-examples \
 "
